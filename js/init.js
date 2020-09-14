@@ -15,6 +15,12 @@ var hideSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
+//entrega 1
+if(!window.location.href.endsWith('login.html')&& sessionStorage.getItem('logueado') !== 'true'){
+  window.location.href='login.html';
+}
+//fin entrega 1
+
 var getJSONData = function(url){
     var result = {};
     showSpinner();
@@ -39,6 +45,16 @@ var getJSONData = function(url){
         return result;
     });
 }
+
+//entrega 2
+document.getElementById('user').innerHTML = localStorage.getItem('usuario')
+//fin entrega 2
+
+// entrega 4
+function deleteUser(){
+  localStorage.removeItem('usuario');
+};
+// fin entrega 4
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
