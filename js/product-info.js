@@ -4,19 +4,52 @@ function showImagesGallery(array){
 
     let htmlContentToAppend = "";
 
-    for(let i = 0; i < array.length; i++){
-        let imageSrc = array[i];
+    for(let i = 0; i < array.images.length; i++){
+        let imageSrc = array.images[i];
 
-        htmlContentToAppend += `
-        <div class="col-lg-3 col-md-4 col-6">
-            <div class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="` + imageSrc + `" alt="">
+        if(i==0){
+            htmlContentToAppend += `
+            <div class="carousel-item active">
+                        <img class="d-block w-100" src="` + imageSrc + `" alt="">
             </div>
-        </div>
-        `
-
-        document.getElementById("productosImagesGallery").innerHTML = htmlContentToAppend;
+            `
+        }else{
+            htmlContentToAppend += `
+            <div class="carousel-item">
+                    <img class="d-block w-100" src="` + imageSrc + `" alt="">
+            </div>
+            `
+        }
     }
+
+    let htmlContentToAppendCarrousel = "";
+
+    htmlContentToAppendCarrousel += `
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+
+            </ol>
+            <div class="carousel-inner">
+                ` + htmlContentToAppend + `
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>   
+            </a>
+            </div>
+    `
+
+        document.getElementById("productosImagesGallery").innerHTML = htmlContentToAppendCarrousel;
+    
 }
 
 var comment = {};
@@ -60,7 +93,7 @@ function showRelatedProducts(){
 
         htmlContentToAppend += `
         <div class="col-md-4">
-        <a href="product-info.html?`+ relacionados.name +`" class="card mb-4 shadow-sm custom-card">
+        <a href="product-info.html?productos=`+ relacionados.name +`" class="card mb-4 shadow-sm custom-card">
           <img class="bd-placeholder-img card-img-top" src="` + relacionados.imgSrc + `">
           <h3 class="m-3">`+ relacionados.name +`</h3>
           <div class="card-body">
@@ -122,15 +155,18 @@ document.addEventListener("DOMContentLoaded", function(e){
             let productCurrencyHTML = document.getElementById("productCurrency");
             let productCostHTML = document.getElementById("productCost");
             let productoCriteriaHTML = document.getElementById("productCategory");
+
+            let params = new URLSearchParams(location.search);
+            let nameProd = params.get('productos')
         
-            productNameHTML.innerHTML = product.name;
+            productNameHTML.innerHTML = nameProd;
             productDescriptionHTML.innerHTML = product.description;
             productCountHTML.innerHTML = product.soldCount;
             productCurrencyHTML.innerHTML = product.currency;
             productCostHTML.innerHTML = product.cost;
             productoCriteriaHTML.innerHTML = product.category;
 
-            showImagesGallery(product.images);
+            showImagesGallery(product);
         }
     });
     getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){

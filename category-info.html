@@ -31,7 +31,7 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <a class="dropdown-item" href="cart.html">Mi carrito</a>
           <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
-          <a class="dropdown-item" href="login.html" onclick="deleteUser()">Cerrar sesión</a>
+          <a class="dropdown-item" href="login.html" onclick="localStorage.clear(); sessionStorage.setItem('logueado', 'false')">Cerrar sesión</a>
         </div>
       </div> 
     </div>

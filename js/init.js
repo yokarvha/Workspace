@@ -50,12 +50,6 @@ var getJSONData = function(url){
 document.getElementById('user').innerHTML = localStorage.getItem('usuario')
 //fin entrega 2
 
-// entrega 4
-function deleteUser(){
-  localStorage.removeItem('usuario');
-};
-// fin entrega 4
-
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
